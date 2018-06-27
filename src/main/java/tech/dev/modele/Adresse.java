@@ -111,5 +111,17 @@ public class Adresse implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Adresse [" +
+                    "id=" + this.getId() + ", " +
+                    "ligne1='" + this.getLigne1() + "', " +
+                    "ligne2='" + this.getLigne2() + "', " +
+                    "codePostal=" + this.getCodePostal() + ", " +
+                    "ville='" + this.getVille() + '\'' +
+                ']';
+    }
+
+
 
 }
