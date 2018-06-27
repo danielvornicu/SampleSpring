@@ -22,6 +22,14 @@ public class Client implements Serializable {
     private Adresse adresse;
     private Set<Commande> commandes;
 
+    public Client() {
+    }
+
+    public Client(String nom, String prenom, Adresse adresse){
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+    }
 
     public Long getId() {
         return id;
@@ -103,6 +111,17 @@ public class Client implements Serializable {
         } else if (!prenom.equals(other.prenom))
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Client [" +
+                 "id=" + this.getId() + ", " +
+                 "prenom='" + this.getPrenom()+ "', " +
+                 "nom='" + this.getNom() + "', " +
+                 "adresse=" + this.getAdresse() + ", " +
+                 "commandes=" + this.getCommandes() +
+                ']';
     }
 
 }
