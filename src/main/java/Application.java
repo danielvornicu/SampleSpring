@@ -38,6 +38,11 @@ public class Application {
         LOGGER.debug("Test si adresse est partagé :");
         System.out.println("Scope pour le bean adresse: " + (c1.getAdresse() == c2.getAdresse() ? "singleton" : "prototype"));
 
+        //Client créé avec le ClientFactory
+        LOGGER.debug("Client créé avec ClientFactory :");
+        Client c5 = context.getBean("c5", Client.class);
+        LOGGER.debug(c5.toString());
+
         LOGGER.debug("Close Spring context...");
         context.close();
     }

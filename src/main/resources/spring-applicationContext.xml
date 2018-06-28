@@ -14,34 +14,38 @@
     <bean id="c1" class="tech.dev.modele.Client" >
         <constructor-arg type="java.lang.String" name="nom" value="Vornicu" />
         <constructor-arg type="java.lang.String" name="prenom" value="Daniel" />
-        <constructor-arg type="tech.dev.modele.Adresse" name="adresse" ref="adressePrincipale" />
+        <constructor-arg type="tech.dev.modele.Adresse" name="adresse" ref="adressePrincipaleAnnotation" />
     </bean>
 
     <!--constructor-arg init -->
     <bean id="c2" class="tech.dev.modele.Client">
         <constructor-arg index="0" value="Vornicu" />
         <constructor-arg index="1" value="Alina" />
-        <constructor-arg index="2" ref="adressePrincipale" />
+        <constructor-arg index="2" ref="adressePrincipaleAnnotation" />
     </bean>
 
     <!--namespace p init -->
-    <bean id="c3" class="tech.dev.modele.Client" p:nom="Vornicu" p:prenom="Luca" p:adresse-ref="adressePrincipale" />
+    <bean id="c3" class="tech.dev.modele.Client" p:nom="Vornicu" p:prenom="Luca" p:adresse-ref="adressePrincipaleAnnotation" />
 
     <!--property init -->
     <bean id="c4" class="tech.dev.modele.Client" >
         <property name="nom" value="Vornicu" />
         <property name="prenom" value="Sofia" />
-        <property name="adresse" ref="adressePrincipale" />
+        <property name="adresse" ref="adressePrincipaleAnnotation" />
     </bean>
 
+    <bean id="c5" factory-bean="clientBuilder" factory-method="createInstance" />
+
     <!--adressePrincipale avec utilisation d'un fichier .properties-->
-    <bean id="adressePrincipale" class="tech.dev.modele.Adresse" scope="singleton">
+    <bean id="adressePrincipale" class="tech.dev.modele.Adresse" scope="prototype">
         <property name="id" value="1" />
         <property name="ligne1" value="${adrPrincipale.rue}" />
         <property name="ligne2" value="${adrPrincipale.complement}" />
         <property name="codePostal" value="${villePrincipale.codePostal}" />
         <property name="ville" ref="ville1" />
     </bean>
+
+    <bean id="a2" factory-bean="adresseBuilder" factory-method="createInstance" />
 
     <!--ville1 avec utilisation d'un fichier .properties-->
     <bean id="ville1" class="java.lang.String" >

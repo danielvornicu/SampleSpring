@@ -1,5 +1,11 @@
 package tech.dev.modele;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
 /**
@@ -11,7 +17,8 @@ import java.io.Serializable;
  * @version 1.0 $Revision$ $Date$
  */
 
-
+@Component("adressePrincipaleAnnotation")
+@Scope("prototype")
 public class Adresse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,44 +29,72 @@ public class Adresse implements Serializable {
     private Integer codePostal;
     private String ville;
 
+    public Adresse() {
+    }
+
+    public Adresse(Integer codePostal) {
+        this.codePostal = codePostal;
+    }
+
     public Long getId() {
         return id;
     }
 
+    @Value("1")
     public void setId(Long id) {
-        this.id = id;
+        if (this.getId() == null){
+            this.id = id;
+        }
     }
 
     public String getLigne1() {
         return ligne1;
     }
 
+    @Value("${adrPrincipale.rue}")
     public void setLigne1(String ligne1) {
-        this.ligne1 = ligne1;
+        if (this.getLigne1() == null){
+            this.ligne1 = ligne1;
+        }
     }
 
     public String getLigne2() {
         return ligne2;
     }
 
+    @Value("${adrPrincipale.complement}")
     public void setLigne2(String ligne2) {
-        this.ligne2 = ligne2;
+        if (this.getLigne2() == null){
+            this.ligne2 = ligne2;
+        }
     }
 
     public Integer getCodePostal() {
         return codePostal;
     }
 
+    @Value("${villePrincipale.codePostal}")
     public void setCodePostal(Integer codePostal) {
-        this.codePostal = codePostal;
+        //parce que on a l'injection qui est faite apres l'appel createInstance de AdresseFactory on veut pas ecraser
+        if (this.getCodePostal() == null){
+            this.codePostal = codePostal;
+        }
     }
 
     public String getVille() {
         return ville;
     }
 
+    //@Value("CLAMART") - valeur en dur
+    //@Value("${villePrincipale.nom}") // pour prendre la valeur du fichier villes.properties
+    //Annotations Spring pour injecter le bean ville1
+    @Autowired
+    @Qualifier("ville1")
     public void setVille(String ville) {
-        this.ville = ville;
+        //parce que on a l'injection qui est faite apres l'appel createInstance de AdresseFactory on veut pas ecraser
+        if (this.getVille() == null){
+            this.ville = ville;
+        }
     }
 
     @Override
