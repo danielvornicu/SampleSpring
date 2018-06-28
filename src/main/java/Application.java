@@ -43,6 +43,12 @@ public class Application {
         Client c5 = context.getBean("c5", Client.class);
         LOGGER.debug(c5.toString());
 
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         LOGGER.debug("Close Spring context...");
         context.close();
     }

@@ -115,6 +115,7 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
+        adresse.afficherAdresseAsync();
         return "Client [" +
                  "id=" + this.getId() + ", " +
                  "prenom='" + this.getPrenom()+ "', " +
