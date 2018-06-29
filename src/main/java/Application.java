@@ -1,7 +1,6 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.support.AbstractApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import tech.dev.modele.Client;
 
 /**
@@ -20,9 +19,11 @@ public class Application {
     public static void main(String[] args) {
         LOGGER.debug("Startup");
         //
-        LOGGER.debug("Init Spring context...");
-        AbstractApplicationContext context = new ClassPathXmlApplicationContext("spring-applicationContext.xml");
-        LOGGER.debug("Get beans from Spring context *.xml file...");
+        //on charge le context via AnnotationConfigApplicationContext
+        LOGGER.debug("Init Spring AnnotationConfigApplicationContext...");
+        LOGGER.debug("Get beans from AnnotationConfigApplicationContext...");
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
         Client c1 = context.getBean("c1", Client.class);
         Client c2 = context.getBean("c2", Client.class);
         Client c3 = context.getBean("c3", Client.class);
@@ -35,21 +36,10 @@ public class Application {
         LOGGER.debug(c3.toString());
         LOGGER.debug(c4.toString());
 
-        LOGGER.debug("Test si adresse est partagé :");
+        LOGGER.debug("Test si adresse est partagée :");
         System.out.println("Scope pour le bean adresse: " + (c1.getAdresse() == c2.getAdresse() ? "singleton" : "prototype"));
 
-        //Client créé avec le ClientFactory
-        LOGGER.debug("Client créé avec ClientFactory :");
-        Client c5 = context.getBean("c5", Client.class);
-        LOGGER.debug(c5.toString());
-
-        try {
-            Thread.sleep(60000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        LOGGER.debug("Close Spring context...");
+        LOGGER.debug("Close Spring AnnotationConfigApplicationContext...");
         context.close();
     }
 }

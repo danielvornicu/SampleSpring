@@ -1,5 +1,8 @@
 package tech.dev.modele;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -60,6 +63,8 @@ public class Client implements Serializable {
         return adresse;
     }
 
+    @Autowired
+    @Qualifier("adressePrincipaleAnnotation")
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
     }
@@ -115,7 +120,6 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        adresse.afficherAdresseAsync();
         return "Client [" +
                  "id=" + this.getId() + ", " +
                  "prenom='" + this.getPrenom()+ "', " +

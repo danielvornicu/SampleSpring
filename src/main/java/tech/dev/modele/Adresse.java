@@ -1,11 +1,7 @@
 package tech.dev.modele;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -32,6 +28,7 @@ public class Adresse implements Serializable {
     private String ville;
 
     public Adresse() {
+        //System.out.println("new Adresse class constructed.");
     }
 
     public Adresse(Integer codePostal) {
@@ -88,10 +85,10 @@ public class Adresse implements Serializable {
     }
 
     //@Value("CLAMART") - valeur en dur
-    //@Value("${villePrincipale.nom}") // pour prendre la valeur du fichier villes.properties
+    @Value("${villePrincipale.nom}") // pour prendre la valeur du fichier villes.properties
     //Annotations Spring pour injecter le bean ville1
-    @Autowired
-    @Qualifier("ville1")
+    //@Autowired
+    //@Qualifier("ville1")
     public void setVille(String ville) {
         //parce que on a l'injection qui est faite apres l'appel createInstance de AdresseFactory on veut pas ecraser
         if (this.getVille() == null){
@@ -99,20 +96,6 @@ public class Adresse implements Serializable {
         }
     }
 
-    @Async
-    public void afficherAdresseAsync()  {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Appel async pour afficher l'adresse: " + this.toString());
-    }
-
-    @Scheduled(fixedRate=5000)
-    public void afficherAdresseTache() throws InterruptedException {
-        System.out.println("Appel planifié pour afficher l'adresse(5s): " + this.toString());
-    }
 
     @Override
     public int hashCode() {
