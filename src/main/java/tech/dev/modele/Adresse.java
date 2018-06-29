@@ -2,6 +2,8 @@ package tech.dev.modele;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -94,6 +96,21 @@ public class Adresse implements Serializable {
         if (this.getVille() == null){
             this.ville = ville;
         }
+    }
+
+    @Async
+    public void afficherAdresseAsync()  {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Appel async pour afficher l'adresse: " + this.toString());
+    }
+
+    @Scheduled(fixedRate=5000)
+    public void afficherAdresseTache() throws InterruptedException {
+        System.out.println("Appel planifié pour afficher l'adresse(5s): " + this.toString());
     }
 
 

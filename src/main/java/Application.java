@@ -39,6 +39,12 @@ public class Application {
         LOGGER.debug("Test si adresse est partagée :");
         System.out.println("Scope pour le bean adresse: " + (c1.getAdresse() == c2.getAdresse() ? "singleton" : "prototype"));
 
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         LOGGER.debug("Close Spring AnnotationConfigApplicationContext...");
         context.close();
     }

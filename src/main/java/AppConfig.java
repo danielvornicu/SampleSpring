@@ -2,6 +2,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import tech.dev.modele.Client;
 
 /**
@@ -16,8 +18,8 @@ import tech.dev.modele.Client;
 @Configuration
 @ComponentScan(basePackages = "tech.dev.modele")
 @PropertySource("classpath:villes.properties")
-//@EnableAsync
-//@EnableScheduling
+@EnableAsync
+@EnableScheduling
 //@EnableTransactionManagement
 public class AppConfig {
 
