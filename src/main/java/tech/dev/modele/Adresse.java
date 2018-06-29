@@ -88,10 +88,10 @@ public class Adresse implements Serializable {
     }
 
     //@Value("CLAMART") - valeur en dur
-    //@Value("${villePrincipale.nom}") // pour prendre la valeur du fichier villes.properties
+    @Value("${villePrincipale.nom}") // pour prendre la valeur du fichier villes.properties
     //Annotations Spring pour injecter le bean ville1
-    @Autowired
-    @Qualifier("ville1")
+    //@Autowired
+    //@Qualifier("ville1")
     public void setVille(String ville) {
         //parce que on a l'injection qui est faite apres l'appel createInstance de AdresseFactory on veut pas ecraser
         if (this.getVille() == null){
