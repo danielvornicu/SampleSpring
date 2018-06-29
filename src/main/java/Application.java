@@ -18,7 +18,7 @@ public class Application {
 
     public static void main(String[] args) {
         LOGGER.debug("Startup");
-        //
+
         //on charge le context via AnnotationConfigApplicationContext
         LOGGER.debug("Init Spring AnnotationConfigApplicationContext...");
         LOGGER.debug("Get beans from AnnotationConfigApplicationContext...");
