@@ -1,11 +1,5 @@
 package tech.dev.modele;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 
 /**
@@ -17,8 +11,6 @@ import java.io.Serializable;
  * @version 1.0 $Revision$ $Date$
  */
 
-@Component("adressePrincipaleAnnotation")
-@Scope("prototype")
 public class Adresse implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +33,6 @@ public class Adresse implements Serializable {
         return id;
     }
 
-    @Value("1")
     public void setId(Long id) {
         if (this.getId() == null){
             this.id = id;
@@ -52,7 +43,6 @@ public class Adresse implements Serializable {
         return ligne1;
     }
 
-    @Value("${adrPrincipale.rue}")
     public void setLigne1(String ligne1) {
         if (this.getLigne1() == null){
             this.ligne1 = ligne1;
@@ -63,7 +53,6 @@ public class Adresse implements Serializable {
         return ligne2;
     }
 
-    @Value("${adrPrincipale.complement}")
     public void setLigne2(String ligne2) {
         if (this.getLigne2() == null){
             this.ligne2 = ligne2;
@@ -74,7 +63,6 @@ public class Adresse implements Serializable {
         return codePostal;
     }
 
-    @Value("${villePrincipale.codePostal}")
     public void setCodePostal(Integer codePostal) {
         //parce que on a l'injection qui est faite apres l'appel createInstance de AdresseFactory on veut pas ecraser
         if (this.getCodePostal() == null){
@@ -86,31 +74,12 @@ public class Adresse implements Serializable {
         return ville;
     }
 
-    //@Value("CLAMART") - valeur en dur
-    @Value("${villePrincipale.nom}") // pour prendre la valeur du fichier villes.properties
-    //Annotations Spring pour injecter le bean ville1
-    //@Autowired
-    //@Qualifier("ville1")
+
     public void setVille(String ville) {
         //parce que on a l'injection qui est faite apres l'appel createInstance de AdresseFactory on veut pas ecraser
         if (this.getVille() == null){
             this.ville = ville;
         }
-    }
-
-    @Async
-    public void afficherAdresseAsync()  {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Appel async pour afficher l'adresse: " + this.toString());
-    }
-
-    @Scheduled(fixedRate=5000)
-    public void afficherAdresseTache() throws InterruptedException {
-        System.out.println("Appel planifié pour afficher l'adresse(5s): " + this.toString());
     }
 
 

@@ -1,7 +1,13 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import tech.dev.dao.ClientJdbcDAO;
+import tech.dev.dao.CommandeJdbcDAO;
 import tech.dev.modele.Client;
+import tech.dev.modele.Commande;
+
+import java.util.List;
 
 /**
  * La classe principale
@@ -20,32 +26,26 @@ public class Application {
         LOGGER.debug("Startup");
 
         //on charge le context via AnnotationConfigApplicationContext
-        LOGGER.debug("Init Spring AnnotationConfigApplicationContext...");
-        LOGGER.debug("Get beans from AnnotationConfigApplicationContext...");
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        LOGGER.debug("Init Spring ClassPathXmlApplicationContext...");
 
-        Client c1 = context.getBean("c1", Client.class);
-        Client c2 = context.getBean("c2", Client.class);
-        Client c3 = context.getBean("c3", Client.class);
-        Client c4 = context.getBean("c4", Client.class);
+        AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        LOGGER.debug("Liste des clients :");
-        //
-        LOGGER.debug(c1.toString());
-        LOGGER.debug(c2.toString());
-        LOGGER.debug(c3.toString());
-        LOGGER.debug(c4.toString());
+        //JDBC
+        ClientJdbcDAO dao = context.getBean(ClientJdbcDAO.class);
+        //List<Client> clients = dao.findAll();
+		List<Client> clients = dao.findAllSimple();
+		for (Client client : clients) {
+			//LOGGER.info(client.getNom() + " " + client.getPrenom() + " " + client.getAdresse().getVille());
+            LOGGER.info(client.toString());
+		}
 
-        LOGGER.debug("Test si adresse est partagée :");
-        System.out.println("Scope pour le bean adresse: " + (c1.getAdresse() == c2.getAdresse() ? "singleton" : "prototype"));
-
-        try {
-            Thread.sleep(60000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        CommandeJdbcDAO daoCommande = context.getBean(CommandeJdbcDAO.class);
+        List<Commande> commandes = daoCommande.findAllByClientId(1L);
+        for (Commande c : commandes) {
+            LOGGER.info("Montant commande client 1: " + c.getMontant());
         }
 
-        LOGGER.debug("Close Spring AnnotationConfigApplicationContext...");
+        LOGGER.debug("Close Spring ClassPathXmlApplicationContext...");
         context.close();
     }
 }
