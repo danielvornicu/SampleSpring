@@ -29,7 +29,6 @@ public class Application {
         LOGGER.debug("Init Spring ClassPathXmlApplicationContext...");
 
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
         //JDBC
         ClientJdbcDAO dao = context.getBean(ClientJdbcDAO.class);
         //List<Client> clients = dao.findAll();
