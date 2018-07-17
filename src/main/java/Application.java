@@ -39,7 +39,6 @@ public class Application {
             LOGGER.info(client.toString());
 		}
 
-
         CommandeJdbcDAO daoCommande = context.getBean(CommandeJdbcDAO.class);
         List<Commande> commandes = daoCommande.findAllByClientId(1L);
         for (Commande c : commandes) {
