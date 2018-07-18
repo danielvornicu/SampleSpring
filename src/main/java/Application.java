@@ -15,7 +15,7 @@ public class Application {
     private static Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        LOGGER.debug("Startup");
+        LOGGER.debug("Startup application...");
 
     }
 }
