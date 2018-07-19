@@ -14,10 +14,40 @@
     </jdbc:embedded-database>
 
 
-    <!--avec JDBCTemplate -->
-    <bean id="jdbcTemplate" scope="singleton" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg ref="datasource" />
+    <!--<bean class="tech.dev.dao.ClientJdbcDAO">-->
+        <!--<constructor-arg ref="datasource"/>-->
+    <!--</bean>-->
+    <!-- Le template est Thread-safe et peut donc être unique à travers tous les DAOs -->
+    <!--<bean id="jdbcTemplate" scope="singleton" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<constructor-arg ref="datasource" />-->
+    <!--</bean>-->
+
+
+    <!-- avec LocalContainerEntityManagerFactoryBean est plus puisant -->
+    <bean id="levrai" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="datasource" />
+        <property name="persistenceProvider">
+            <bean class="org.hibernate.jpa.HibernatePersistenceProvider" />
+        </property>
     </bean>
-    
+
+    <!-- alternative proposant moins de fonctionnalité (notamment absence d'injection de DataSource) -->
+    <!-- nécessite l'existence des <properties> dans persistence.xml -->
+
+    <!--   <bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+           <property name="persistenceUnitName" value="crm-pu"/>
+       </bean>-->
+
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- Gestionnaire de transactions pour JDBC seul -->
+    <!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>-->
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="levrai"/>
+    </bean>
 
 </beans>

@@ -2,10 +2,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import tech.dev.dao.ClientJdbcDAO;
-import tech.dev.dao.CommandeJdbcDAO;
-import tech.dev.modele.Client;
-import tech.dev.modele.Commande;
+import tech.dev.dao.ClientJpaDAO;
+import tech.dev.entites.Client;
 
 import java.util.List;
 
@@ -29,21 +27,13 @@ public class Application {
         LOGGER.debug("Init Spring ClassPathXmlApplicationContext...");
 
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        //JDBC
-        ClientJdbcDAO dao = context.getBean(ClientJdbcDAO.class);
-        //List<Client> clients = dao.findAll();
-        //List<Client> clients = dao.findAllSimple();
-        List<Client> clients = dao.findAllJava8();
-        for (Client client : clients) {
-			//LOGGER.info(client.getNom() + " " + client.getPrenom() + " " + client.getAdresse().getVille());
+
+        //JPA
+        ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
+		List<Client> clients = dao.findAll();
+		for (Client client : clients) {
             LOGGER.info(client.toString());
 		}
-
-        CommandeJdbcDAO daoCommande = context.getBean(CommandeJdbcDAO.class);
-        List<Commande> commandes = daoCommande.findAllByClientId(1L);
-        for (Commande c : commandes) {
-            LOGGER.info("Montant commande client 1: " + c.getMontant());
-        }
 
         LOGGER.debug("Close Spring ClassPathXmlApplicationContext...");
         context.close();
