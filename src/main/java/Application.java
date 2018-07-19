@@ -32,8 +32,9 @@ public class Application {
         //JDBC
         ClientJdbcDAO dao = context.getBean(ClientJdbcDAO.class);
         //List<Client> clients = dao.findAll();
-		List<Client> clients = dao.findAllSimple();
-		for (Client client : clients) {
+		//List<Client> clients = dao.findAllSimple();
+        List<Client> clients = dao.findAllJava8();
+        for (Client client : clients) {
 			//LOGGER.info(client.getNom() + " " + client.getPrenom() + " " + client.getAdresse().getVille());
             LOGGER.info(client.toString());
 		}
