@@ -29,9 +29,11 @@ public class Application {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
         //JPA
+
         ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
 		List<Client> clients = dao.findAll();
-		for (Client client : clients) {
+        LOGGER.debug("Liste des clients :");
+        for (Client client : clients) {
             LOGGER.info(client.toString());
 		}
 
