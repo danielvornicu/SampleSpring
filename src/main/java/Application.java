@@ -33,11 +33,11 @@ public class Application {
         //ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
         ClientService service = context.getBean(ClientService.class);
 
-//        for (int i=0 ; i< 10 ; i++) {
-//            // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
-//            //dao.findAll();
-//            service.findAll();
-//        }
+        for (int i=0 ; i< 10 ; i++) {
+            // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
+            //dao.findAll();
+            service.findAll();
+        }
         //methode dao.findById est Cacheable(cacheNames = {"client"})
         for (int i=0 ; i< 10 ; i++) {
             // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
