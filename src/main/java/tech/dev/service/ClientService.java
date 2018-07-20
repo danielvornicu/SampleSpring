@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tech.dev.dao.AdresseJpaDAO;
 import tech.dev.dao.ClientJpaDAO;
+import tech.dev.entites.Client;
+
+import java.util.List;
 
 /**
  * Description de la classe
@@ -18,6 +21,8 @@ import tech.dev.dao.ClientJpaDAO;
 
 @Service
 public class ClientService {
+
+    //private static Logger LOGGER = LoggerFactory.getLogger(ClientService.class);
 
     ClientJpaDAO clientDAO;
     AdresseJpaDAO adresseDAO;
@@ -33,6 +38,15 @@ public class ClientService {
         //System.out.println(clientDAO);
         this.clientDAO.deleteByAdreseId(id);
         this.adresseDAO.deleteById(id);
+    }
+
+    public List<Client> findAll() {
+        return clientDAO.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Client findById(Long id) {
+        return clientDAO.findById(id);
     }
 
 }

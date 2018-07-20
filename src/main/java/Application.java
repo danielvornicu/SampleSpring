@@ -28,17 +28,34 @@ public class Application {
 
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        //JPA
-        afficherClients(context);
-        try {
-            LOGGER.debug("Tentative de suppression d'un client et son adresse");
-            ClientService service = context.getBean(ClientService.class);
-            service.deleteClientByAdresseId(1L);
-            LOGGER.debug("Client et son adresse supprimés");
-        } catch (NullPointerException e) {
-            LOGGER.error("Problème lors de la suppression");
+        //cache
+        //methode dao.findAll est Cacheable(cacheNames = {"clients"})
+        //ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
+        ClientService service = context.getBean(ClientService.class);
+
+//        for (int i=0 ; i< 10 ; i++) {
+//            // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
+//            //dao.findAll();
+//            service.findAll();
+//        }
+        //methode dao.findById est Cacheable(cacheNames = {"client"})
+        for (int i=0 ; i< 10 ; i++) {
+            // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
+            //dao.findById(1L);
+            service.findById(1L);
         }
-        afficherClients(context);
+
+        //JPA
+//        afficherClients(context);
+//        try {
+//            LOGGER.debug("Tentative de suppression d'un client et son adresse");
+//            ClientService service = context.getBean(ClientService.class);
+//            service.deleteClientByAdresseId(1L);
+//            LOGGER.debug("Client et son adresse supprimés");
+//        } catch (NullPointerException e) {
+//            LOGGER.error("Problème lors de la suppression");
+//        }
+//        afficherClients(context);
         //
         LOGGER.debug("Close Spring ClassPathXmlApplicationContext...");
         context.close();
