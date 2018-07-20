@@ -23,16 +23,16 @@ public class ClientService {
     AdresseJpaDAO adresseDAO;
 
     @Autowired
-    public ClientService(ClientJpaDAO clientJpaDAO, AdresseJpaDAO adresseDAO) {
+    public ClientService(ClientJpaDAO clientDAO, AdresseJpaDAO adresseDAO) {
         this.clientDAO  = clientDAO;
         this.adresseDAO = adresseDAO;
     }
 
     @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = NullPointerException.class)
     public void deleteClientByAdresseId(Long id){
-        //System.out.println(adresseDAO);
+        //System.out.println(clientDAO);
         this.clientDAO.deleteByAdreseId(id);
-        //this.adresseDAO.deleteById(id);
+        this.adresseDAO.deleteById(id);
     }
 
 }

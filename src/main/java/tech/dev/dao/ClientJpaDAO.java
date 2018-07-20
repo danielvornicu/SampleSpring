@@ -17,6 +17,7 @@ import java.util.List;
 
 @Repository
 public class ClientJpaDAO {
+
     @PersistenceContext
     //@PersistenceContext(unitName = "crm-pu")  -- unitName - declaration explicite si on a plusieurs unites de persistance
     EntityManager em;
@@ -38,9 +39,10 @@ public class ClientJpaDAO {
     }
 
 
-    public void deleteClientByAdreseId(Long id){
-        Query query = em.createQuery("DELETE FROM Client c WHERE c.adresse.id = :adresseId");
-        int count = query.setParameter("adresseId", id).executeUpdate();
+    public void deleteByAdreseId(Long adresseId){
+        Query query = em.createQuery("DELETE FROM Client c WHERE c.adresse.id = :id");
+        query.setParameter("id", adresseId);
+        int count = query.executeUpdate();
         System.out.println("Nombre de clients supprimés: "  + count);
     }
 }

@@ -1,11 +1,11 @@
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import tech.dev.dao.ClientJpaDAO;
 import tech.dev.entites.Client;
-
-import java.util.List;
+import tech.dev.service.ClientService;
 
 /**
  * La classe principale
@@ -29,15 +29,27 @@ public class Application {
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
         //JPA
-
-        ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
-		List<Client> clients = dao.findAll();
-        LOGGER.debug("Liste des clients :");
-        for (Client client : clients) {
-            LOGGER.info(client.toString());
-		}
-
+        afficherClients(context);
+        try {
+            LOGGER.debug("Tentative de suppression d'un client et son adresse");
+            ClientService service = context.getBean(ClientService.class);
+            service.deleteClientByAdresseId(1L);
+            LOGGER.debug("Client et son adresse supprimés");
+        } catch (NullPointerException e) {
+            LOGGER.error("Problème lors de la suppression");
+        }
+        afficherClients(context);
+        //
         LOGGER.debug("Close Spring ClassPathXmlApplicationContext...");
         context.close();
+    }
+
+    private static void afficherClients(ApplicationContext context) {
+        //
+        ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
+        LOGGER.debug("Liste des clients :");
+        for (Client client : dao.findAll()) {
+            LOGGER.debug(client.toString());
+        }
     }
 }

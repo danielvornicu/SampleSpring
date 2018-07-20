@@ -5,9 +5,9 @@
              version="2.1">
 
     <persistence-unit name="crm-pu" transaction-type="RESOURCE_LOCAL">
-        <!--<class>tech.dev.entites.Client</class>-->
-        <!--<class>tech.dev.entites.Adresse</class>-->
-        <!--<class>tech.dev.entites.Commande</class>-->
+        <class>tech.dev.entites.Client</class>
+        <class>tech.dev.entites.Adresse</class>
+        <class>tech.dev.entites.Commande</class>
         <!--<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
         <!--<properties>-->
             <!--<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />-->
