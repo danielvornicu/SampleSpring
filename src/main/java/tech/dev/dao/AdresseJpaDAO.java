@@ -1,5 +1,7 @@
 package tech.dev.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,6 +22,8 @@ public class AdresseJpaDAO {
     @PersistenceContext
     EntityManager em;
 
+    private static Logger LOGGER = LoggerFactory.getLogger(AdresseJpaDAO.class);
+
     public AdresseJpaDAO() {
         super();
     }
@@ -27,6 +31,7 @@ public class AdresseJpaDAO {
     public void deleteById(Long id){
         Query query = em.createQuery("DELETE FROM Adresse a WHERE a.id = :Id");
         int count = query.setParameter("Id", id).executeUpdate();
-        System.out.println("Nombre d'adresses supprimés: "  + count);
+        //System.out.println("Nombre d'adresses supprimés: "  + count);
+        LOGGER.debug("Nombre d'adresses supprimés: "  + count);
     }
 }

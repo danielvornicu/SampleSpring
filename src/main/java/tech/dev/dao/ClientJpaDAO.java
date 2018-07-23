@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 @Repository
-@CacheConfig
 public class ClientJpaDAO {
 
     @PersistenceContext
@@ -49,14 +48,12 @@ public class ClientJpaDAO {
         LOGGER.debug("Nombre de clients supprimés: "  + count);
     }
 
-    @Cacheable(cacheNames = {"clients"})
     public List<Client> findAll() {
         LOGGER.debug("Running findAll");
         return em.createQuery("select c from Client c left join fetch c.adresse a left join fetch c.commandes", Client.class)
                 .getResultList();
     }
 
-    @Cacheable(cacheNames = {"client"})
     public Client findById(Long id) {
         LOGGER.debug("Running findById avec id = " + id);
         Client c = em.find(Client.class, id);
@@ -65,4 +62,12 @@ public class ClientJpaDAO {
         //c.getCommandes().size();
         return c;
     }
+
+    public List<Client> findClientsByAdresseId(Long adresseId){
+        LOGGER.debug("Running findClientsByAdresseId");
+        Query query = em.createQuery("select c from Client c where c.adresse.id = :id", Client.class);
+        query.setParameter("id", adresseId);
+        return query.getResultList();
+    }
+
 }

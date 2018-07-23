@@ -3,6 +3,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import tech.dev.dao.ClientJpaDAO;
 import tech.dev.entites.Client;
 import tech.dev.service.ClientService;
@@ -28,35 +33,21 @@ public class Application {
 
         AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        //cache
-        //methode dao.findAll est Cacheable(cacheNames = {"clients"})
-        //ClientJpaDAO dao = context.getBean(ClientJpaDAO.class);
-        ClientService service = context.getBean(ClientService.class);
+        //Security
+        afficherClients(context);
 
-        for (int i=0 ; i< 10 ; i++) {
-            // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
-            //dao.findAll();
-            service.findAll();
-        }
-        //methode dao.findById est Cacheable(cacheNames = {"client"})
-        for (int i=0 ; i< 10 ; i++) {
-            // seul 1 véritable appel doit avoir lieu à cause de la stratégie de cache
-            //dao.findById(1L);
-            service.findById(1L);
-        }
+        authenticateUser(context, "dv", "mdp");
 
-        //JPA
-//        afficherClients(context);
-//        try {
-//            LOGGER.debug("Tentative de suppression d'un client et son adresse");
-//            ClientService service = context.getBean(ClientService.class);
-//            service.deleteClientByAdresseId(1L);
-//            LOGGER.debug("Client et son adresse supprimés");
-//        } catch (NullPointerException e) {
-//            LOGGER.error("Problème lors de la suppression");
-//        }
-//        afficherClients(context);
-        //
+        try {
+            LOGGER.debug("Tentative de suppression d'un client et son adresse");
+            ClientService service = context.getBean(ClientService.class);
+            service.deleteClientByAdresseId(1L);
+            LOGGER.debug("Client et son adresse supprimés");
+        } catch (NullPointerException e) {
+            LOGGER.error("Problème lors de la suppression");
+        }
+        afficherClients(context);
+
         LOGGER.debug("Close Spring ClassPathXmlApplicationContext...");
         context.close();
     }
@@ -68,5 +59,13 @@ public class Application {
         for (Client client : dao.findAll()) {
             LOGGER.debug(client.toString());
         }
+    }
+
+    private static void authenticateUser(AbstractApplicationContext context, String username, String password) {
+        AuthenticationManager authManager = context.getBean(AuthenticationManager.class);
+        UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(username, password);
+        Authentication auth = authManager.authenticate(authReq);
+        SecurityContext sc = SecurityContextHolder.getContext();
+        sc.setAuthentication(auth);
     }
 }
