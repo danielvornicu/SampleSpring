@@ -13,16 +13,16 @@
 
     <import resource="classpath:applicationContext.xml" />
 
-    <sec:authentication-manager>
-        <sec:authentication-provider>
-            <sec:user-service>
-                <sec:user name="user1" password="mdp" authorities="ROLE_USER, ROLE_ADMIN" />
-                <sec:user name="user2" password="mdp" authorities="ROLE_USER" />
-                <sec:user name="dv"   password="mdp" authorities="ROLE_ADMIN" />
-                <sec:user name="eric" password="mdp" authorities="ROLE_USER, ROLE_ADMIN" />
-            </sec:user-service>
-        </sec:authentication-provider>
-    </sec:authentication-manager>
+    <!--<sec:authentication-manager>-->
+        <!--<sec:authentication-provider>-->
+            <!--<sec:user-service>-->
+                <!--<sec:user name="user1" password="mdp" authorities="ROLE_USER, ROLE_ADMIN" />-->
+                <!--<sec:user name="user2" password="mdp" authorities="ROLE_USER" />-->
+                <!--<sec:user name="dv"   password="mdp" authorities="ROLE_ADMIN" />-->
+                <!--<sec:user name="eric" password="mdp" authorities="ROLE_USER, ROLE_ADMIN" />-->
+            <!--</sec:user-service>-->
+        <!--</sec:authentication-provider>-->
+    <!--</sec:authentication-manager>-->
 
 
 </beans>
