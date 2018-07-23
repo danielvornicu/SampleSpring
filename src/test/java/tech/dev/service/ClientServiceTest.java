@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -39,7 +40,7 @@ public class ClientServiceTest {
         assertNotNull(clientService);
     }
 
-    //@Test(expected = AuthenticationCredentialsNotFoundException.class)
+    @Test(expected = AuthenticationCredentialsNotFoundException.class)
     public void no_authenticated_user_should_not_run_clientService(){
         clientService.deleteClientByAdresseId(1L);
     }
