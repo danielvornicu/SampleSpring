@@ -2,8 +2,6 @@ package tech.dev.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import tech.dev.entites.Client;
 
@@ -68,6 +66,10 @@ public class ClientJpaDAO {
         Query query = em.createQuery("select c from Client c where c.adresse.id = :id", Client.class);
         query.setParameter("id", adresseId);
         return query.getResultList();
+    }
+
+    public void create(Client client) {
+        em.persist(client);
     }
 
 }

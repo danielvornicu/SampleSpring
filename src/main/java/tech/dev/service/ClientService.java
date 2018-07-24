@@ -1,7 +1,6 @@
 package tech.dev.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,6 @@ import java.util.List;
  */
 
 @Service
-@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ClientService {
 
     //private static Logger LOGGER = LoggerFactory.getLogger(ClientService.class);
@@ -54,6 +52,11 @@ public class ClientService {
     @Transactional(readOnly = true)
     public Client findById(Long id) {
         return clientDAO.findById(id);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void create(Client client) {
+        this.clientDAO.create(client);
     }
 
 }

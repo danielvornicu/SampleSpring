@@ -5,25 +5,16 @@ import org.eclipse.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Description de la classe
- * <p>
- * Date: 23/07/2018
- *
- * @author d.vornicu
- * @version 1.0 $Revision$ $Date$
- */
-
 public class WebApplication {
-    private static Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(WebApplication.class);
 
-    public static void main(String[] args) throws Exception {
-        Server server = new Server(8090);
+	public static void main(String[] args) throws Exception {
+		Server server = new Server(8090);
 
-        WebAppContext webAppContext = new WebAppContext();
-        webAppContext.setDescriptor("src/main/webapp/WEB-INF/web.xml");
-        webAppContext.setResourceBase("src/main/webapp/");
-        webAppContext.setContextPath("/crm");
+		WebAppContext webAppContext = new WebAppContext();
+		webAppContext.setDescriptor("src/main/webapp/WEB-INF/web.xml");
+		webAppContext.setResourceBase("src/main/webapp/");
+		webAppContext.setContextPath("/crm");
 
         webAppContext.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*.*\\.jar$");
 
@@ -32,10 +23,10 @@ public class WebApplication {
         classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", "org.eclipse.jetty.plus.webapp.EnvConfiguration", "org.eclipse.jetty.plus.webapp.PlusConfiguration");
         classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration", "org.eclipse.jetty.annotations.AnnotationConfiguration");
 
-        server.setHandler(webAppContext);
+		server.setHandler(webAppContext);
 
-        server.start();
-        LOGGER.debug("Web application ready");
-        server.join();
-    }
+		server.start();
+		LOGGER.debug("Web application ready");
+		server.join();
+	}
 }
