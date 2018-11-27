@@ -36,6 +36,15 @@ public class ClientController {
         return "listeClients";
     }
 
+    @RequestMapping(value = "/deleteClient", method = RequestMethod.GET)
+    public String removeClient(@RequestParam("id") Long idClient, Model model) {
+        clientService.deleteClientByClientId(idClient);
+
+        List<Client> clients = clientService.findAll();
+        model.addAttribute("clients", clients);
+        return "listeClients";
+    }
+
     @RequestMapping(value = "/admin/ajouterClient", method = RequestMethod.GET)
     public String preparerAffichageAjoutClient(Model model) {
         model.addAttribute("client", new Client());
@@ -47,6 +56,5 @@ public class ClientController {
         clientService.create(client);
         return "redirect:../clients";
     }
-
 
 }

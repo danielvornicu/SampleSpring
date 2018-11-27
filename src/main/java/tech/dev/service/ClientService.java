@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 @Service
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ClientService {
 
     //private static Logger LOGGER = LoggerFactory.getLogger(ClientService.class);
@@ -38,6 +39,12 @@ public class ClientService {
         //System.out.println(clientDAO);
         this.clientDAO.deleteByAdreseId(id);
         this.adresseDAO.deleteById(id);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, noRollbackFor = NullPointerException.class)
+    public void deleteClientByClientId(Long id){
+        //System.out.println(clientDAO);
+        this.clientDAO.deleteById(id);
     }
 
     public List<Client> findAll() {

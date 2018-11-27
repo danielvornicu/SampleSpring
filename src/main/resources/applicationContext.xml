@@ -72,6 +72,7 @@
     <!-- Pour la gestion de la securité -->
     <sec:global-method-security pre-post-annotations="enabled" />
 
+    <!-- Auth manager pour WebApplication.java il faut pas utuliser les 2 au meme temp -->
     <sec:http auto-config="true">
         <sec:intercept-url pattern="/spring-mvc/admin/**"
                            access="hasRole('ROLE_ADMIN')" />
@@ -79,7 +80,6 @@
                            access="permitAll" />
         <sec:logout />
     </sec:http>
-
     <sec:authentication-manager>
         <sec:authentication-provider>
             <sec:user-service>
@@ -91,12 +91,13 @@
         </sec:authentication-provider>
     </sec:authentication-manager>
 
-    <!--<sec:authentication-manager>-->
-        <!--<sec:authentication-provider>-->
-            <!--<sec:jdbc-user-service-->
-                    <!--data-source-ref="dataSource" />-->
-        <!--</sec:authentication-provider>-->
-    <!--</sec:authentication-manager>-->
+    <!-- Auth manager pour Application.java  -->
+<!--    <sec:authentication-manager>
+        <sec:authentication-provider>
+            <sec:jdbc-user-service
+                    data-source-ref="dataSource" />
+        </sec:authentication-provider>
+    </sec:authentication-manager>-->
 
 
 </beans>
