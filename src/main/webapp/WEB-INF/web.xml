@@ -1,0 +1,100 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>CRM</display-name>
+	
+<!-- 	<servlet> -->
+<!-- 		<servlet-name></servlet-name> -->
+<!-- 		<servlet-class></servlet-class> -->
+<!-- 	</servlet> -->
+
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name></servlet-name> -->
+<!-- 		<url-pattern></url-pattern> -->
+<!-- 	</servlet-mapping> -->
+
+	<!-- Integrer la configuration Spring existante: configuration "back" ContextLoaderListener -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- configuration Spring dedie au tiers Web : Spring MVC -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:dispatcher-applicationContext.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- configuration Spring dedie aà la partie REST -->
+	<servlet>
+		<servlet-name>restDispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:restDispatcher-applicationContext.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>spring-mvc/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>restDispatcher</servlet-name>
+		<url-pattern>api/*</url-pattern>
+	</servlet-mapping>
+
+	<!--What this code does is that it will increase the length of your JPA session or as the documentation says, it is used
+	"to allow for lazy loading in web views despite the original transactions already being completed."
+	so this way the JPA session will be open a bit longer and because of that you can lazily load collections in your
+	jsp files and controller classes-->
+
+<!--	<filter>
+		<filter-name>SpringOpenEntityManagerInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SpringOpenEntityManagerInViewFilter</filter-name>
+		<url-pattern>api/*</url-pattern>
+	</filter-mapping>-->
+
+	<!-- Spring Security -->
+	<!--si on met ca en commentaire on peut faire POST en POSTMAN san etre obligé d'envoyer le token _csrf-->
+<!--	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<!--Security -->
+<!--	<filter>
+		<filter-name>myFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>myFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+	<!--Security -->
+
+</web-app>
