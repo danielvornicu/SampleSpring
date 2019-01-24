@@ -3,6 +3,7 @@ package tech.dev.web.jaxws.sei;
 
 import java.util.List;
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
@@ -26,6 +27,24 @@ public interface ClientWebServ {
 
     /**
      * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod(action = "save_client")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "saveClient", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.SaveClient")
+    @ResponseWrapper(localName = "saveClientResponse", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.SaveClientResponse")
+    @Action(input = "save_client", output = "http://jaxws.clients.com/ClientWebServ/saveClientResponse")
+    public boolean saveClient(
+            @WebParam(name = "arg0", targetNamespace = "")
+                    ClientTO arg0,
+            @WebParam(name = "arg1", targetNamespace = "")
+                    boolean arg1);
+
+    /**
+     * 
      * @return
      *     returns java.util.List<com.clients.jaxws.ClientTO>
      */
@@ -35,5 +54,32 @@ public interface ClientWebServ {
     @ResponseWrapper(localName = "fetchClientsResponse", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.FetchClientsResponse")
     @Action(input = "fetch_clients", output = "http://jaxws.clients.com/ClientWebServ/fetchClientsResponse")
     public List<ClientTO> fetchClients();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns com.clients.jaxws.ClientTO
+     */
+    @WebMethod(action = "fetch_client")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "fetchClientById", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.FetchClientById")
+    @ResponseWrapper(localName = "fetchClientByIdResponse", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.FetchClientByIdResponse")
+    @Action(input = "fetch_client", output = "http://jaxws.clients.com/ClientWebServ/fetchClientByIdResponse")
+    public ClientTO fetchClientById(
+            @WebParam(name = "arg0", targetNamespace = "")
+                    Long arg0);
+
+    /**
+     * 
+     * @param arg0
+     */
+    @WebMethod(action = "delete_client")
+    @RequestWrapper(localName = "deleteClientById", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.DeleteClientById")
+    @ResponseWrapper(localName = "deleteClientByIdResponse", targetNamespace = "http://jaxws.clients.com/", className = "com.clients.jaxws.DeleteClientByIdResponse")
+    @Action(input = "delete_client", output = "http://jaxws.clients.com/ClientWebServ/deleteClientByIdResponse")
+    public void deleteClientById(
+            @WebParam(name = "arg0", targetNamespace = "")
+                    Long arg0);
 
 }

@@ -43,7 +43,7 @@ public class ClientJpaDAO {
         //query.setParameter("id", adresseId);
         //int count = query.executeUpdate();
 
-        Query query = em.createNamedQuery("Client.findClientsByAdresseId");
+        Query query = em.createNamedQuery("Client.deleteByAdreseId");
         int count = query.setParameter("adresseId", adresseId).executeUpdate();
         em.flush();
         //System.out.println("Nombre de clients supprimés: "  + count);

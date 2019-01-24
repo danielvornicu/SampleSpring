@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "ClientWebService", targetNamespace = "http://jaxws.clients.com/", wsdlLocation = "http://localhost:1234/crm/jaxws/ClientWebService?wsdl")
+@WebServiceClient(name = "ClientWebService", targetNamespace = "http://jaxws.clients.com/", wsdlLocation = "http://localhost:8090/crm/spring-ws/client?wsdl")
 public class ClientWebService
     extends Service
 {
@@ -30,7 +30,7 @@ public class ClientWebService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://localhost:1234/crm/jaxws/ClientWebService?wsdl");
+            url = new URL("http://localhost:8090/crm/spring-ws/client?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

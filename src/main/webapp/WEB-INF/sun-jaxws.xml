@@ -6,6 +6,11 @@
     <endpoint
             name="TestWebService"
             implementation="tech.dev.web.jaxws.TestWS"
-            url-pattern="/test" />
+            url-pattern="/ws/test" />
+
+    <endpoint
+            name="ClientWebService"
+            implementation="tech.dev.web.jaxws.ClientWS"
+            url-pattern="/ws/client" />
 
 </endpoints>

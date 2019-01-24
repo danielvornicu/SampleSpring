@@ -13,7 +13,7 @@
     <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
     <!-- Enables the Spring MVC @Controller programming model -->
-    <context:component-scan base-package="tech.dev.web.controller" />
+    <context:component-scan base-package="tech.dev.web.controller tech.dev.web.jaxws" />
     <mvc:annotation-driven>
        <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>

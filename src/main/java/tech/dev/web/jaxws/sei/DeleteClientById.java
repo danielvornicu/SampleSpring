@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deleteClientById", propOrder = {
+@XmlType(name = "deleteClientById1", propOrder = {
     "arg0"
 })
 public class DeleteClientById {

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "fetchClients")
+@XmlType(name = "fetchClients1")
 public class FetchClients {
 
 

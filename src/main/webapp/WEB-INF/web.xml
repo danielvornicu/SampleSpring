@@ -19,9 +19,32 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Register Spring Context Listener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- Listener for jaxws without Spring -->
+	<listener>
+		<listener-class>
+			com.sun.xml.ws.transport.http.servlet.WSServletContextListener
+		</listener-class>
+	</listener>
+
+	<!--initializes web service context listener -->
+    <!-- necessaire pour 2. Deployment on to a servlet-containe, voir WSApplication.java -->
+<!--    <listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>-->
+
 
 	<!-- configuration Spring dedie au tiers Web : Spring MVC -->
 	<servlet>
@@ -45,6 +68,29 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+    <!-- necessaire pour 2. Deployment on to a servlet-containe, voir WSApplication.java -->
+	<!--The servlet definition and it’s mapping is used to intercept the url-pattern that should be considered as web service request-->
+	<!-- jaxws without Spring -->
+	<servlet>
+		<servlet-name>jaxws-servlet</servlet-name>
+		<!--<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>-->
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- jaxws with Spring -->
+	<servlet>
+		<servlet-name>spring-jaxws-servlet</servlet-name>
+		<!-- this is for JAX-WS commons spring ext. -->
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSSpringServlet</servlet-class>
+<!--		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-jaxws-applicationContext.xml</param-value>
+		</init-param>-->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>spring-mvc/*</url-pattern>
@@ -53,6 +99,19 @@
 	<servlet-mapping>
 		<servlet-name>restDispatcher</servlet-name>
 		<url-pattern>api/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- necessaire pour 2. Deployment on to a servlet-containe, voir WSApplication.java -->
+	<!-- jaxws without Spring -->
+    <servlet-mapping>
+		<servlet-name>jaxws-servlet</servlet-name>
+		<url-pattern>ws/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- jaxws with Spring -->
+	<servlet-mapping>
+		<servlet-name>spring-jaxws-servlet</servlet-name>
+		<url-pattern>/spring-ws/*</url-pattern>
 	</servlet-mapping>
 
 	<!--What this code does is that it will increase the length of your JPA session or as the documentation says, it is used

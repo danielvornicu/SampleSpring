@@ -16,7 +16,7 @@ public class WebApplication {
 		webAppContext.setResourceBase("src/main/webapp/");
 		webAppContext.setContextPath("/crm");
 
-        webAppContext.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*/[^/]*.*\\.jar$");
+        webAppContext.setAttribute("org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern",".*//*[^/]*.*\\.jar$");
 
         //4. Enabling the Annotation based configuration
         org.eclipse.jetty.webapp.Configuration.ClassList classlist = org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(server);
@@ -28,5 +28,6 @@ public class WebApplication {
 		server.start();
 		LOGGER.debug("Web application ready");
 		server.join();
+
 	}
 }

@@ -38,7 +38,7 @@ public class Application {
         //Security
         afficherClients(context);
 
-        authenticateUser(context, "dv", "mdp1");
+        authenticateUser(context, "dv", "mdp");
 
         try {
             LOGGER.debug("Tentative de suppression d'un client et son adresse");

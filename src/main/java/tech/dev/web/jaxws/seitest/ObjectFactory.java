@@ -10,7 +10,7 @@ import javax.xml.namespace.QName;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the tech.dev.web.jaxws package. 
+ * generated in the com.test.jaxws package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -24,11 +24,11 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _GetInfo_QNAME = new QName("http://jaxws.web.dev.tech/", "getInfo");
-    private final static QName _GetInfoResponse_QNAME = new QName("http://jaxws.web.dev.tech/", "getInfoResponse");
+    private final static QName _GetInfo_QNAME = new QName("http://jaxws.test.com/", "getInfo");
+    private final static QName _GetInfoResponse_QNAME = new QName("http://jaxws.test.com/", "getInfoResponse");
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: tech.dev.web.jaxws
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.test.jaxws
      * 
      */
     public ObjectFactory() {
@@ -54,7 +54,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link GetInfo }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://jaxws.web.dev.tech/", name = "getInfo")
+    @XmlElementDecl(namespace = "http://jaxws.test.com/", name = "getInfo")
     public JAXBElement<GetInfo> createGetInfo(GetInfo value) {
         return new JAXBElement<GetInfo>(_GetInfo_QNAME, GetInfo.class, null, value);
     }
@@ -63,7 +63,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link GetInfoResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://jaxws.web.dev.tech/", name = "getInfoResponse")
+    @XmlElementDecl(namespace = "http://jaxws.test.com/", name = "getInfoResponse")
     public JAXBElement<GetInfoResponse> createGetInfoResponse(GetInfoResponse value) {
         return new JAXBElement<GetInfoResponse>(_GetInfoResponse_QNAME, GetInfoResponse.class, null, value);
     }

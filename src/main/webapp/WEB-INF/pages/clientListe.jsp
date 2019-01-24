@@ -11,7 +11,7 @@
 
 <div>
     <h1>
-        <spring:message code="liste.clients.titre" />
+        <spring:message code="liste.clients.mvc.titre" />
     </h1>
 </div>
 
@@ -36,18 +36,19 @@
                 </td>
             </tr>
         </c:forEach>
-    <tbody/>
+    </tbody>
 </table>
 
 <%--<a href="client/new"><spring:message code="liste.action.ajouter"/></a>--%>
 <br/>
 <button id="create_bouton" type="submit" onclick="self.location.href='${createUrl}'"><spring:message code="fiche.bouton.creer" /></button>
 
-<%--<sec:authorize access="isAuthenticated()">--%>
-    <%--<c:url var="logout" value="/logout" />--%>
-    <%--<form action="${logout}" method="post">--%>
-        <%--<input type="hidden" name="${_csrf.parameterName}"--%>
-               <%--value="${_csrf.token}" />--%>
-        <%--<input type="submit" value="Logout">--%>
-    <%--</form>--%>
-<%--</sec:authorize>--%>
+<%--
+<sec:authorize access="isAuthenticated()">
+    <c:url var="logout" value="/logout" />
+    <form action="${logout}" method="post">
+        <input type="hidden" name="${_csrf.parameterName}"
+               value="${_csrf.token}" />
+        <input type="submit" value="Logout">
+    </form>
+</sec:authorize>--%>

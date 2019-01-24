@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "deleteClientByIdResponse")
+@XmlType(name = "deleteClientByIdResponse1")
 public class DeleteClientByIdResponse {
 
 
