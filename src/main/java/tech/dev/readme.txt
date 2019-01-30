@@ -11,7 +11,7 @@ http://localhost:8090/crm/api/clients/1  -consult
 http://localhost:8090/crm/api/clients/1/delete
 http://localhost:8090/crm/api/clients/new
 
-A simple client for REST api:
+A simple client for REST api(version web):
 http://localhost:8090/crm/spring-mvc/rsclient
 http://localhost:8090/crm/spring-mvc/rsclient/new
 http://localhost:8090/crm/spring-mvc/rsclient/1  - consult
@@ -44,11 +44,13 @@ For servlet-container deployment(WebApplication):
 
 Copy files from sei/src into new project package called sei ou seitest.
 
-A simple client for SOAP WS:
+A simple client for SOAP WS(version web):
 http://localhost:8090/crm/spring-mvc/wsclient
 http://localhost:8090/crm/spring-mvc/wsclient/new
 http://localhost:8090/crm/spring-mvc/wsclient/1  - consult
 http://localhost:8090/crm/spring-mvc/wsclient/1/edit
 http://localhost:8090/crm/spring-mvc/wsclient/1/delete
+
+A simple client for SOAP WS (version java): lancer SimpleClientWS.java
 
 
