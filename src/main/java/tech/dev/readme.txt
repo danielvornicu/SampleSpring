@@ -53,4 +53,6 @@ http://localhost:8090/crm/spring-mvc/wsclient/1/delete
 
 A simple client for SOAP WS (version java): lancer SimpleClientWS.java
 
+Plugin Chrome for testing SOAP WS(Wizdler or soapUI or Boomerang) for browsing WSDL and make Request/Response
+
 
