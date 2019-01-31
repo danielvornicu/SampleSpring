@@ -1,5 +1,7 @@
 package tech.dev.web.jaxws;
 
+import org.springframework.stereotype.Component;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -15,6 +17,8 @@ import javax.jws.soap.SOAPBinding;
  * @version 1.0 $Revision$ $Date$
  */
 
+//Component annotation using for the binding #testWS in spring-jaxws-applicationContext.xml
+@Component
 @WebService(name="TestWebServ", portName= "TestWebServicePort", serviceName = "TestWebService",
         targetNamespace = "http://jaxws.test.com/"
 )

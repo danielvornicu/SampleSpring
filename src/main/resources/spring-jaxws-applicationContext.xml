@@ -20,4 +20,10 @@
         </wss:service>
     </wss:binding>
 
+    <wss:binding url="/spring-ws/test">
+        <wss:service>
+            <ws:service bean="#testWS" />
+        </wss:service>
+    </wss:binding>
+
 </beans>
