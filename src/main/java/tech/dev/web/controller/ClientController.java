@@ -37,6 +37,7 @@ public class ClientController extends AbstractSearchEditController<ClientTO, Cli
         return ROOT_VUE;
     }
 
+
     @Override
     protected void initializeIndexTO(ModelMap model) {
         //liste des TO
