@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.client.RestTemplate;
 import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.AbstractSearchEditController;
@@ -136,9 +137,12 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
 
     //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
     @Override
-    public String update(@PathVariable Long id, @Valid ClientForm form, ModelMap model) {
+    public String update(@PathVariable Long id, @Valid ClientForm form, ModelMap model, SessionStatus status) {
         ClientTO to = form.saveForm();
         saveTO(to, model, false);
+
+        // Efface les données de la session
+        status.setComplete();
 
         return "redirect:../.." + REQUEST_MAPPING;
     }
@@ -152,9 +156,12 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
 
     //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
     @Override
-    public String create(@Valid ClientForm form, ModelMap model) {
+    public String create(@Valid ClientForm form, ModelMap model, SessionStatus status) {
         ClientTO to = form.saveForm();
         saveTO(to, model, true);
+
+        // Efface les données de la session
+        status.setComplete();
 
         return "redirect:.."  + REQUEST_MAPPING;
     }

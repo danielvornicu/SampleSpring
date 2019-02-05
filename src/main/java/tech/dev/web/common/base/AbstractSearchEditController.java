@@ -4,6 +4,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.support.SessionStatus;
 import tech.dev.commons.to.base.TransferObject;
 
 import javax.validation.Valid;
@@ -62,10 +63,13 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * @return la vue contenant l'écran de recherche
      */
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String create(@Valid F form, ModelMap model) {
+    public String create(@Valid F form, ModelMap model, SessionStatus status) {
 
         T to = form.saveForm();
         saveTO(to, model, true);
+
+        // Efface les données de la session
+        status.setComplete();
 
         return "redirect:../"  + getRootView();
     }
@@ -91,10 +95,13 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
      * @return la vue contenant l'écran de recherche
      */
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.POST)
-    public String update(@PathVariable Long id, @Valid F form, ModelMap model) {
+    public String update(@PathVariable Long id, @Valid F form, ModelMap model, SessionStatus status) {
 
         T to = form.saveForm();
         saveTO(to, model, false);
+
+        // Efface les données de la session
+        status.setComplete();
 
         return "redirect:../../" + getRootView();
     }
