@@ -56,3 +56,7 @@ A simple client for SOAP WS (version java): lancer SimpleClientWS.java
 Plugin Chrome for testing SOAP WS(Wizdler or soapUI or Boomerang) for browsing WSDL and make Request/Response
 
 
+BEAN VALIDATION:
+Add support for Bean Validation with Hibernate Validator for ClientTO/ClientForm(activation par annotation via @Valid).
+For this we must activate a validator via xml config: <mvc:annotation-driven validator="validator">
+We can also make a manual validation(see AbstractSearchEditController and ValidationUtil.validData(to) )
