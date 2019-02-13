@@ -110,6 +110,13 @@
         </sec:authentication-provider>
     </sec:authentication-manager>-->
 
+    <!-- For Bean Validation  -->
+    <!--il faut mettre aussi <mvc:annotation-driven validator="validator"> si on utilise @Valid dans le controlleur-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource" />
+    </bean>
+
+
     <!-- Web Services -->
     <import resource="spring-jaxws-applicationContext.xml"/>
 

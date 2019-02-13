@@ -14,7 +14,9 @@
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <context:component-scan base-package="tech.dev.web.controller tech.dev.web.jaxws" />
-    <mvc:annotation-driven>
+
+    <!--on ajoute validator="validator" pour activer la validation par annotation-->
+    <mvc:annotation-driven validator="validator">
        <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
 <!--            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>-->

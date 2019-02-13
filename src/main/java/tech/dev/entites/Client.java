@@ -1,7 +1,12 @@
 package tech.dev.entites;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.Set;
 
 /**
@@ -45,6 +50,15 @@ import java.util.Set;
                         + "where c.adresse.id = :adresseId "
         )
 })
+
+@FilterDefs({
+        @FilterDef(name = "ClientFilterNom", parameters = {@ParamDef(name = "pNom", type = "string")})
+})
+@Filters({
+        @Filter(name = "ClientFilterNom",
+                condition = " NOM = :pNom" )
+})
+
 public class Client extends Entite {
 
     private static final long serialVersionUID = 1L;

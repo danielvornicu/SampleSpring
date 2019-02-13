@@ -64,6 +64,7 @@ public class ClientService extends AbstractCRUDServiceBase<Client, ClientTO> {
 
     public List<ClientTO> findAllFillTO() {
         List<Client> entityList = clientDAO.findAll();
+        //List<Client> entityList = clientDAO.findAllWithFilter();
         //convertor
         List<ClientTO> TOlist = getConvertor().entityList2TOList(entityList, false);
 

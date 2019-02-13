@@ -1,11 +1,13 @@
 package tech.dev.dao;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import tech.dev.entites.Client;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -18,6 +20,8 @@ import java.util.List;
  */
 
 @Repository
+//Transactional est necessaire pour em.unwrap(Session.class);
+@Transactional
 public class ClientJpaDAO {
 
     @PersistenceContext
@@ -70,6 +74,23 @@ public class ClientJpaDAO {
         List<Client> liste;
         liste = em.createNamedQuery("Client.findAll", Client.class)
                    .getResultList();
+        return liste;
+    }
+
+    public List<Client> findAllWithFilter() {
+        LOGGER.debug("Running findAll with Filter");
+
+        (em.unwrap(Session.class)).enableFilter("ClientFilterNom").setParameter("pNom", "VORNICU");
+
+//        List<Client> liste;
+//        liste =  em.createQuery("select c from Client c left join fetch c.adresse a left join fetch c.commandes", Client.class)
+//                .getResultList();
+//        return liste;
+
+        //version 2 avec NamedQuery
+        List<Client> liste;
+        liste = em.createNamedQuery("Client.findAll", Client.class)
+                .getResultList();
         return liste;
     }
 

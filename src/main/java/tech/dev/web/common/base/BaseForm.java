@@ -18,4 +18,14 @@ public abstract class BaseForm<T extends TransferObject> implements Serializable
 
     public abstract void initForm(T to);
     public abstract T saveForm();
+
+    private String redirectUrl;
+
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
 }

@@ -5,14 +5,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 import tech.dev.to.ClientTO;
 import tech.dev.web.common.base.AbstractSearchEditController;
 import tech.dev.web.formulaires.ClientForm;
 import tech.dev.web.jaxws.sei.ClientWebServ;
 import tech.dev.web.jaxws.sei.ClientWebService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -44,6 +42,11 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
         return ROOT_VUE;
     }
 
+    protected String getRootLink(){
+        // ".." + REQUEST_MAPPING
+        return PARENT_DIRECTORY + REQUEST_MAPPING.replace("/","");
+    }
+
     @Override
     protected void initializeIndexTO(ModelMap model) {
         //liste des TO
@@ -62,6 +65,11 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
     protected void initializeShowTO(Long id, ClientForm form, ModelMap model) {
         //ClientTO client = clientService.findByIdFillTO(id);
 
+        // on definie redirectUrl(../wsclient) en utilisant REQUEST_MAPPING( /wsclient )
+        // et pas ROOT_VUE( wspages/wsclient ) pour gerer un sous repertoire wspages
+        // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+        form.setRedirectUrl(getRootLink());
+
         ClientWebService service = new ClientWebService() ;
         //Get the web service proxy or port from the web service client factory. This port is nothing but the stub for the web service created.
         ClientWebServ servicePort = service.getClientWebServicePort();
@@ -72,6 +80,12 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
 
     @Override
     protected void initializeNewTO(ClientForm form, ModelMap model) {
+
+        // on definie redirectUrl(../wsclient) en utilisant REQUEST_MAPPING( /wsclient )
+        // et pas ROOT_VUE( wspages/wsclient ) pour gerer un sous repertoire wspages
+        // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+        form.setRedirectUrl(getRootLink());
+
         fillModel(form, model, null);
     }
 
@@ -79,6 +93,11 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
     protected void initializeEditTO(Long id, ClientForm form, ModelMap model) {
         try {
             //ClientTO client = clientService.findByIdFillTO(id);
+
+            // on definie redirectUrl(../wsclient) en utilisant REQUEST_MAPPING( /wsclient )
+            // et pas ROOT_VUE( wspages/wsclient ) pour gerer un sous repertoire wspages
+            // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+            form.setRedirectUrl(getRootLink());
 
             ClientWebService service = new ClientWebService() ;
             //Get the web service proxy or port from the web service client factory. This port is nothing but the stub for the web service created.
@@ -133,38 +152,9 @@ public class ClientSoapController extends AbstractSearchEditController<ClientTO,
 
     //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
     @Override
-    public String cancel(ClientTO to) {
-        return "redirect:.." + REQUEST_MAPPING;
-    }
-
-    //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
-    @Override
-    public String update(@PathVariable Long id, @Valid ClientForm form, ModelMap model, SessionStatus status) {
-        ClientTO to = form.saveForm();
-        saveTO(to, model, false);
-
-        // Efface les données de la session
-        status.setComplete();
-
-        return "redirect:../.." + REQUEST_MAPPING;
-    }
-
-    //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
-    @Override
     public String delete(@PathVariable Long id, ModelMap model) {
         deleteTO(id, model);
         return "redirect:../.." + REQUEST_MAPPING;
     }
 
-    //override necessaire que pour la partie WS Soap pour gerer le sous repertoire wspages
-    @Override
-    public String create(@Valid ClientForm form, ModelMap model, SessionStatus status) {
-        ClientTO to = form.saveForm();
-        saveTO(to, model, true);
-
-        // Efface les données de la session
-        status.setComplete();
-
-        return "redirect:.."  + REQUEST_MAPPING;
-    }
 }

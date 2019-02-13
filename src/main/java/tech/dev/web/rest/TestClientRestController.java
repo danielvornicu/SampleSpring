@@ -2,6 +2,7 @@ package tech.dev.web.jaxws;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -47,6 +48,11 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
         return ROOT_VUE;
     }
 
+    protected String getRootLink(){
+        // ".." + REQUEST_MAPPING
+        return PARENT_DIRECTORY + REQUEST_MAPPING.replace("/","");
+    }
+
     @Override
     protected void initializeIndexTO(ModelMap model) {
         //liste des TO
@@ -74,6 +80,11 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
     protected void initializeShowTO(Long id, ClientForm form, ModelMap model) {
         //ClientTO client = clientService.findByIdFillTO(id);
 
+        // on definie redirectUrl(../rsclient) en utilisant REQUEST_MAPPING( /rsclient )
+        // et pas ROOT_VUE( rspages/rsclient ) pour gerer un sous repertoire rspages
+        // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+        form.setRedirectUrl(getRootLink());
+
         RestTemplate restTemplate = new RestTemplate();
         ClientTO client  = restTemplate.getForObject(REST_SERVICE_URI + "/" +id, ClientTO.class);
 
@@ -82,6 +93,11 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
 
     @Override
     protected void initializeNewTO(ClientForm form, ModelMap model) {
+        // on definie redirectUrl(../rsclient) en utilisant REQUEST_MAPPING( /rsclient )
+        // et pas ROOT_VUE( rspages/rsclient ) pour gerer un sous repertoire rspages
+        // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+        form.setRedirectUrl(getRootLink());
+
         fillModel(form, model, null);
     }
 
@@ -89,6 +105,11 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
     protected void initializeEditTO(Long id, ClientForm form, ModelMap model) {
         try {
             //ClientTO client = clientService.findByIdFillTO(id);
+
+            // on definie redirectUrl(../rsclient) en utilisant REQUEST_MAPPING( /rsclient )
+            // et pas ROOT_VUE( rspages/rsclient ) pour gerer un sous repertoire rspages
+            // donc getRedirectAfterEdit() dans le controlleur de base est decalé d'un pas
+            form.setRedirectUrl(getRootLink());
 
             RestTemplate restTemplate = new RestTemplate();
             ClientTO client  = restTemplate.getForObject(REST_SERVICE_URI + "/" +id, ClientTO.class);
@@ -129,23 +150,6 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
         restTemplate.getForObject(REST_SERVICE_URI + "/" + id + "/delete", List.class);
     }
 
-    //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
-    @Override
-    public String cancel(ClientTO to) {
-        return "redirect:.." + REQUEST_MAPPING;
-    }
-
-    //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
-    @Override
-    public String update(@PathVariable Long id, @Valid ClientForm form, ModelMap model, SessionStatus status) {
-        ClientTO to = form.saveForm();
-        saveTO(to, model, false);
-
-        // Efface les données de la session
-        status.setComplete();
-
-        return "redirect:../.." + REQUEST_MAPPING;
-    }
 
     //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
     @Override
@@ -154,16 +158,6 @@ public class TestClientRestController extends AbstractSearchEditController<Clien
         return "redirect:../.." + REQUEST_MAPPING;
     }
 
-    //override necessaire que pour la partie REST pour gerer le sous repertoire rspages
-    @Override
-    public String create(@Valid ClientForm form, ModelMap model, SessionStatus status) {
-        ClientTO to = form.saveForm();
-        saveTO(to, model, true);
 
-        // Efface les données de la session
-        status.setComplete();
-
-        return "redirect:.."  + REQUEST_MAPPING;
-    }
 }
 

@@ -5,7 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"  %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
 <spring:url var="clientCancelUrl" value="/spring-mvc/client/cancel" />
 
 <div>
@@ -21,16 +20,21 @@
     </h1>
 </div>
 
-<form:form method="POST" id="clientForm" modelAttribute="clientForm" >
+<%--Error message--%>
+<jsp:include page="/WEB-INF/pages/common/erreurs/errorMessage.jsp" />
+
+<form:form method="POST" id="clientForm" modelAttribute="clientForm">
     <table>
         <tbody>
         <tr>
             <th><form:label path="client.nom" for="nom" ><spring:message code="fiche.client.nom"/></form:label></th>
-            <td><form:input path="client.nom" id="nom" maxlength="20" size="30" /></td>
+            <td><form:input path="client.nom" id="nom" maxlength="20" size="30" cssClass="required" /></td>
+            <td><form:errors path="client.nom" cssClass="error" /></td>
         </tr>
         <tr>
             <th><form:label path="client.prenom" for="prenom" ><spring:message code="fiche.client.prenom"/></form:label></th>
-            <td><form:input path="client.prenom" id="prenom" maxlength="20" size="30" /> </td>
+            <td><form:input path="client.prenom" id="prenom" maxlength="20" size="30" cssClass="required" /></td>
+            <td><form:errors path="client.prenom" cssClass="error" /></td>
         </tr>
         </tbody>
     </table>
