@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 public class ClientForm extends BaseForm<ClientTO> {
 
+    //validation by annotation @Valid (in ClientForm) vs manual validation with ValidationUtil.validData(to);
     @Valid
     private ClientTO client;
 

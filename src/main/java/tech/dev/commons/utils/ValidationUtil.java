@@ -19,10 +19,12 @@ import java.util.Set;
 
 public class ValidationUtil {
 
-    //1.sans properties file
+    //1.work sans intepolation in properties file
     //private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
-    //2.with properties file
+    //2.work with intepolation properties file
+    //By default, framework picks up validation messages from ValidationMessages.properties file in classpath.
+    // You may configure your own custom property files as below
     private static final Validator VALIDATOR = Validation.byDefaultProvider()
             .configure()
             .messageInterpolator(
@@ -32,6 +34,26 @@ public class ValidationUtil {
             )
             .buildValidatorFactory()
             .getValidator();
+
+    //3.work with multiple properties files with intepolation
+    //Put these two files in classpath i.e. common.properties and other.properties.
+    // Now all messages will be resolved from these two property files
+/*    private static final Validator VALIDATOR = Validation.byDefaultProvider()
+            .configure()
+            .messageInterpolator(
+                    new ResourceBundleMessageInterpolator(
+                            new AggregateResourceBundleLocator(
+                                    Arrays.asList(
+                                            "messages/common",
+                                            "messages/other"
+                                    )
+                            )
+                    )
+            )
+            .buildValidatorFactory()
+            .getValidator();*/
+
+    /**
 
     /**
      * Valide un objet et retourne une InvalidDataException si l'objet n'est pas valide

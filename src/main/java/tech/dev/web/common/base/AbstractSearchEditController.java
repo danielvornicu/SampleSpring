@@ -126,6 +126,7 @@ public abstract class AbstractSearchEditController<T extends TransferObject,  F 
 
         T to = form.saveForm();
 
+        //manual validation vs by annotation @Valid (in ClientForm)
 /*        try {
             ValidationUtil.validData(to);
         } catch (Exception e) {
