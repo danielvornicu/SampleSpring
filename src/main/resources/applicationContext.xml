@@ -70,8 +70,16 @@
     </bean>
 
     <!-- Messages pour les servlet et security -->
-    <bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+    <!--v1-->
+<!--    <bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="messages/common" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>-->
+
+    <!--v2 with ReloadableResourceBundleMessageSource il faut ajouter classpath: -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages/common" />
+        <property name="defaultEncoding" value="UTF-8" />
     </bean>
 
     <!-- Pour la gestion de la securité -->
