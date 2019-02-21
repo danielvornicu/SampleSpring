@@ -21,9 +21,12 @@
 </div>
 
 <%--Error message les 2 include ont le meme effect mais elle ne sont pas identiques--%>
-<%--permet d'inclure un fichier dans la page emise vers le client--%>
+
+<%--permet d'inclure un fichier dans la page emise vers le client
+c'est une action, un moyen de demander au moteur de servlet d'inclure un fichier--%>
 <jsp:include page="/WEB-INF/pages/common/erreurs/errorMessage.jsp" />
-<%--permet d'inserer un fichier, lors de la creation du code sorce dela servlet--%>
+
+<%--permet d'inserer un fichier, lors de la creation du code source dela servlet--%>
 <%--<%@ include file="/WEB-INF/pages/common/erreurs/errorMessage.jsp" %>--%>
 
 <form:form method="POST" id="clientForm" modelAttribute="clientForm">
