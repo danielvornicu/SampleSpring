@@ -4,6 +4,7 @@ package tech.dev.to;
 import tech.dev.commons.to.base.TransferObject;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -20,9 +21,11 @@ public class ClientTO extends TransferObject implements Serializable {
     private Long id;
 
     @NotEmpty(message = "{client.validation.prenom.empty}")
+    @Size(max=10, message="{client.validation.prenom.maxLength}")
     private String prenom;
 
     @NotEmpty(message = "{client.validation.nom.empty}")
+    @Size(max=10, message="{client.validation.nom.maxLength}")
     private String nom;
 
     public ClientTO() {
