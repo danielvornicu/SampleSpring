@@ -20,8 +20,9 @@
     </h1>
 </div>
 
-<%--Error message--%>
-<jsp:include page="/WEB-INF/pages/common/erreurs/errorMessage.jsp" />
+<%--Error message les 2 include sont echivalentes--%>
+<%--<jsp:include page="/WEB-INF/pages/common/erreurs/errorMessage.jsp" />--%>
+<%@ include file="/WEB-INF/pages/common/erreurs/errorMessage.jsp" %>
 
 <form:form method="POST" id="clientForm" modelAttribute="clientForm">
     <table>
